@@ -45,7 +45,7 @@ const projects = [
 const NAV_LINKS = ["Work", "About", "Contact"];
 
 export default function Portfolio() {
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(false);
   const workRef = useRef(null);
@@ -59,10 +59,9 @@ export default function Portfolio() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollTo = (section) => {
+  const scrollTo = (section: string) => {
     const refs = { Work: workRef, About: aboutRef, Contact: contactRef };
-    refs[section]?.current?.scrollIntoView({ behavior: "smooth" });
-  };
+    (refs as Record<string, React.RefObject<HTMLElement>>)[section]?.current?.scrollIntoView({ behavior: "smooth" });
 
   return (
     <div style={{
